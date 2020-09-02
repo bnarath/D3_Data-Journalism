@@ -4,9 +4,9 @@
   
   <img align="right" src="https://media.giphy.com/media/v2xIous7mnEYg/giphy.gif" alt="Newsroom" style="width:100, float:'right'"/>
   
-Welcome to the newsroom! This project is to analyze the census data to find the current trends shaping people's lives, as well as creating charts, graphs, and interactive elements using D3.js to help readers understand the findings. We know how impactful visualization is to tell the underlying story; here we see how that is being done using a powerful tool like D3!
+Welcome to the newsroom! This project is to analyze the census data to find the current trends shaping people's lives, as well as creating charts, graphs, and interactive elements using [D3.js](https://d3js.org/) to help readers understand the findings. We know how impactful visualization is to tell the underlying story; here we see how that is being done using a powerful tool like `D3`!
 
-In this project, we sift through information from the U.S. Census Bureau and the Behavioral Risk Factor Surveillance System and visualize the health risks facing particular demographics.
+In this project, we sift through information from `the U.S. Census Bureau` and the `Behavioral Risk Factor Surveillance System` and visualize the health risks facing particular demographics.
  
 
 </p>
