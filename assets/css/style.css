@@ -33,6 +33,7 @@ body {
 
 .active {
   font-weight: bold;
+  font-size: 16px;
   /* fill: #000; */
   fill: #551aaf;
   /* transition: fill 0.3s ease-out; */
@@ -41,6 +42,7 @@ body {
 
 .inactive {
   font-weight: lighter;
+  font-size: 16px;
   fill: #551aaf;
   /* transition: fill 0.3s ease-out; */
   text-anchor: middle;
@@ -48,5 +50,5 @@ body {
 
 .inactive:hover {
   fill: #e75480;
-  /* cursor: pointer; */
+  cursor: pointer;
 }

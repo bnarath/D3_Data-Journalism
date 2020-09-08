@@ -104,6 +104,13 @@ d3.csv('assets/data/data.csv').then(function(data, err){
         .classed("inactive", true)
         .text("Age (Median)")
 
+    var incomeLabel = xLabelGroup.append("text")
+        .attr("x", 0)
+        .attr("y", 70)
+        .attr("value", "income")
+        .classed("inactive", true)
+        .text("Household Income (Median)")
+
 }).catch(function(error){
     console.warn(error);
 })
