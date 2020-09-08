@@ -128,6 +128,13 @@ d3.csv('assets/data/data.csv').then(function(data, err){
         .classed("inactive", true)
         .text("Smokes (%)")
 
+    var obesityLabel = yLabelGroup.append("text")
+        .attr("x", 0 - (height / 2))
+        .attr("y", -70)
+        .attr("value", "obesity")
+        .classed("active", true)
+        .text("Obese (%)")
+
 }).catch(function(error){
     console.warn(error);
 })
