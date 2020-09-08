@@ -59,18 +59,33 @@ d3.csv('assets/data/data.csv').then(function(data, err){
 
     //By default, show povert Vs obesity
     var chosenXAxis = "poverty", chosenYAxis = "obesity";
+    //Step b:- Create scales
+    var xScale = scale(data, chosenXAxis, false);
+    var yScale = scale(data, chosenYAxis, true);
 
-    //Step b:- Create left and bottom axes
-    var bottomAxis = d3.axisBottom(scale(data, chosenXAxis, false));
-    var leftAxis = d3.axisLeft(scale(data, chosenYAxis, true));
+    //Step c:- Create left and bottom axes
+    var bottomAxis = d3.axisBottom(xScale);
+    var leftAxis = d3.axisLeft(yScale);
 
-    //Step c:- Render axes -> Need to refactor This
+    //Step d:- Render axes -> Need to refactor This
     var xAxis = chartGroup.append("g")
                           .attr("transform", `translate(0, ${height})`)
                           .call(bottomAxis);
 
     var yAxis = chartGroup.append("g")
                           .call(leftAxis);
+
+    //Step e:- Render circles
+    var circlesGroup = chartGroup.selectAll("circle")
+                                 .data(data)
+                                 .enter()
+                                 .append("circle")
+                                 .attr("cx", d=>xScale(d[chosenXAxis]))
+                                 .attr("cy", d=>yScale(d[chosenYAxis]))
+                                 .attr("r", 10)
+                                 .attr("fill", "red")
+                                 .attr("opacity", ".5");
+
     
 
 }).catch(function(error){
