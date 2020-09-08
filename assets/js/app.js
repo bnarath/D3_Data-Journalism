@@ -96,7 +96,13 @@ d3.csv('assets/data/data.csv').then(function(data, err){
                                   .attr("value", "poverty")
                                   .classed("active", true)
                                   .text("In poverty (%)")
-    
+
+    var ageLabel = xLabelGroup.append("text")
+        .attr("x", 0)
+        .attr("y", 50)
+        .attr("value", "age")
+        .classed("inactive", true)
+        .text("Age (Median)")
 
 }).catch(function(error){
     console.warn(error);
