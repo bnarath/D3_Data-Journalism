@@ -26,10 +26,10 @@ function scale(data, chosenXAxis, y=true){
     // Input:- data, chosenXAxis(attribute in the data)
     // Output:- Linear scale
     // y: Indicates y axis or not
-    var upper = (y==true) ? height: width;
+    var upper = (y==true) ? [height,0]: [0,width];
     var linearScale = d3.scaleLinear()
                          .domain([d3.min(data, d=>d[chosenXAxis])*0.8, d3.max(data, d=>d[chosenXAxis])*1.2])
-                         .range([0, upper])
+                         .range(upper)
     
     return linearScale;
 }
@@ -63,6 +63,14 @@ d3.csv('assets/data/data.csv').then(function(data, err){
     //Step b:- Create left and bottom axes
     var bottomAxis = d3.axisBottom(scale(data, chosenXAxis, false));
     var leftAxis = d3.axisLeft(scale(data, chosenYAxis, true));
+
+    //Step c:- Render axes -> Need to refactor This
+    var xAxis = chartGroup.append("g")
+                          .attr("transform", `translate(0, ${height})`)
+                          .call(bottomAxis);
+
+    var yAxis = chartGroup.append("g")
+                          .call(leftAxis);
     
 
 }).catch(function(error){
