@@ -40,9 +40,20 @@ d3.csv('assets/data/data.csv').then(function(data, err){
     //Throw err if exists
     if (err) throw err;
 
-    console.log(data);
+    //console.log(data);
     //abbr, poverty, age, income, obesity, smokes, healthcare are the attributes to be considered
     //data is in the form of array of objects
+
+    //Step a:- //Convert the below attributes to numeric
+    // age, poverty, income, obesity, smokes, healthcare
+    data.forEach(entry => {
+        entry.age = +entry.age;
+        entry.poverty = +entry.poverty;
+        entry.income = +entry.income;
+        entry.obesity = +entry.obesity;
+        entry.smokes = +entry.smokes;
+        entry.healthcare = +entry.healthcare;
+    });
 
     //console.log(scale(data, "age", y=false));
 
