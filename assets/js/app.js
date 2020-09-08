@@ -86,6 +86,16 @@ d3.csv('assets/data/data.csv').then(function(data, err){
                                  .attr("fill", "red")
                                  .attr("opacity", ".5");
 
+    // Step f:- Create axes labels
+    // // Step f. 1 Axes label group for x axis
+    var xLabelGroup = chartGroup.append("g").attr("transform", `translate(${width/2}, ${height})`);
+    // // Step f. 2 Render x axes labels
+    var povertyLabel = xLabelGroup.append("text")
+                                  .attr("x", 0)
+                                  .attr("y", 30)
+                                  .attr("value", "poverty")
+                                  .classed("active", true)
+                                  .text("In poverty (%)")
     
 
 }).catch(function(error){
