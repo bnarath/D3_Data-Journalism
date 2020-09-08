@@ -123,10 +123,10 @@ d3.csv('assets/data/data.csv').then(function(data, err){
     
     var smokesLabel = yLabelGroup.append("text")
         .attr("x", 0 - (height / 2))
-        .attr("y", -30)
+        .attr("y", -50)
         .attr("value", "smokes")
         .classed("inactive", true)
-        .text("Lacks Healthcare (%)")
+        .text("Smokes (%)")
 
 }).catch(function(error){
     console.warn(error);
