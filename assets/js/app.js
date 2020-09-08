@@ -87,9 +87,12 @@ d3.csv('assets/data/data.csv').then(function(data, err){
                                  .attr("opacity", ".5");
 
     // Step f:- Create axes labels
-    // // Step f. 1 Axes label group for x axis
+    // // Step f. 1 Axes label group for x & y axis
     var xLabelGroup = chartGroup.append("g").attr("transform", `translate(${width/2}, ${height})`);
-    // // Step f. 2 Render x axes labels
+    var yLabelGroup = chartGroup.append("g")
+                                .attr("transform", "rotate(-90)")
+                                
+    // // Step f. 2 Render axes labels
     var povertyLabel = xLabelGroup.append("text")
                                   .attr("x", 0)
                                   .attr("y", 30)
@@ -110,6 +113,20 @@ d3.csv('assets/data/data.csv').then(function(data, err){
         .attr("value", "income")
         .classed("inactive", true)
         .text("Household Income (Median)")
+
+    var healthcareLabel = yLabelGroup.append("text")
+        .attr("x", 0 - (height / 2))
+        .attr("y", -30)
+        .attr("value", "healthcare")
+        .classed("inactive", true)
+        .text("Lacks Healthcare (%)")
+    
+    var smokesLabel = yLabelGroup.append("text")
+        .attr("x", 0 - (height / 2))
+        .attr("y", -30)
+        .attr("value", "smokes")
+        .classed("inactive", true)
+        .text("Lacks Healthcare (%)")
 
 }).catch(function(error){
     console.warn(error);
