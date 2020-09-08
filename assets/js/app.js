@@ -34,6 +34,26 @@ function scale(data, chosenXAxis, y=true){
     return linearScale;
 }
 
+//Step6:- Render ToolTip
+// Creates and Render tooltip 
+//Returns the group with rendered tooltip
+function renderTooltip(circlesGroup, chosenXAxis, chosenYAxis){
+    var toolTip = d3.tip()
+                    .attr("class", "d3-tip")
+                    .offset([-10,0])
+                    .html(function(d){
+                        return (`${d.state}<hr>${chosenXAxis}:${d[chosenXAxis]}<br>${chosenYAxis}:${d[chosenYAxis]}`);
+                    });
+
+    circlesGroup.call(toolTip);
+    //Show and hide tooltip
+    circlesGroup.on("mouseover", function(d){
+        toolTip.show(d, this);
+    }).on("mouseout", function(d){
+        toolTip.hide();
+    })
+    return circlesGroup;
+}
 
 
 //Step5:- Explore CSV
@@ -137,20 +157,7 @@ d3.csv('assets/data/data.csv').then(function(data, err){
     
     //console.log(data);
     // Step g:- Create ToolTip
-    var toolTip = d3.tip()
-                    .attr("class", "d3-tip")
-                    .offset([-10,0])
-                    .html(function(d){
-                        return (`${d.state}<hr>${chosenXAxis}:${d[chosenXAxis]}<br>${chosenYAxis}:${d[chosenYAxis]}`);
-                    });
-
-    circlesGroup.call(toolTip);
-    //Show and hide tooltip
-    circlesGroup.on("mouseover", function(d){
-        toolTip.show(d, this);
-    }).on("mouseout", function(d){
-        toolTip.hide();
-    })
+    circlesGroup = renderTooltip(circlesGroup, chosenXAxis, chosenYAxis);
     
 }).catch(function(error){
     console.warn(error);
