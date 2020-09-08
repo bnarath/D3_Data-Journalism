@@ -52,6 +52,10 @@
   border-radius: 4px;
 }
 
+hr{
+  border-top: 1px dashed #fff;
+}
+
 /* Mobile Rules */
 @media screen and (max-width: 530px) {
   .stateText {

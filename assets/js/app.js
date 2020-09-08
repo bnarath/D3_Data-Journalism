@@ -90,7 +90,7 @@ d3.csv('assets/data/data.csv').then(function(data, err){
     // // Step f. 1 Axes label group for x & y axis
     var xLabelGroup = chartGroup.append("g").attr("transform", `translate(${width/2}, ${height})`);
     var yLabelGroup = chartGroup.append("g")
-                                .attr("transform", "rotate(-90)")
+                                .attr("transform", "rotate(-90)");
                                 
     // // Step f. 2 Render axes labels
     var povertyLabel = xLabelGroup.append("text")
@@ -98,43 +98,60 @@ d3.csv('assets/data/data.csv').then(function(data, err){
                                   .attr("y", 30)
                                   .attr("value", "poverty")
                                   .classed("active", true)
-                                  .text("In poverty (%)")
+                                  .text("In poverty (%)");
 
     var ageLabel = xLabelGroup.append("text")
         .attr("x", 0)
         .attr("y", 50)
         .attr("value", "age")
         .classed("inactive", true)
-        .text("Age (Median)")
+        .text("Age (Median)");
 
     var incomeLabel = xLabelGroup.append("text")
         .attr("x", 0)
         .attr("y", 70)
         .attr("value", "income")
         .classed("inactive", true)
-        .text("Household Income (Median)")
+        .text("Household Income (Median)");
 
     var healthcareLabel = yLabelGroup.append("text")
         .attr("x", 0 - (height / 2))
         .attr("y", -30)
         .attr("value", "healthcare")
         .classed("inactive", true)
-        .text("Lacks Healthcare (%)")
+        .text("Lacks Healthcare (%)");
     
     var smokesLabel = yLabelGroup.append("text")
         .attr("x", 0 - (height / 2))
         .attr("y", -50)
         .attr("value", "smokes")
         .classed("inactive", true)
-        .text("Smokes (%)")
+        .text("Smokes (%)");
 
     var obesityLabel = yLabelGroup.append("text")
         .attr("x", 0 - (height / 2))
         .attr("y", -70)
         .attr("value", "obesity")
         .classed("active", true)
-        .text("Obese (%)")
+        .text("Obese (%)");
+    
+    //console.log(data);
+    // Step g:- Create ToolTip
+    var toolTip = d3.tip()
+                    .attr("class", "d3-tip")
+                    .offset([-10,0])
+                    .html(function(d){
+                        return (`${d.state}<hr>${chosenXAxis}:${d[chosenXAxis]}<br>${chosenYAxis}:${d[chosenYAxis]}`);
+                    });
 
+    circlesGroup.call(toolTip);
+    //Show and hide tooltip
+    circlesGroup.on("mouseover", function(d){
+        toolTip.show(d, this);
+    }).on("mouseout", function(d){
+        toolTip.hide();
+    })
+    
 }).catch(function(error){
     console.warn(error);
 })
