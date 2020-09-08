@@ -26,10 +26,11 @@ function scale(data, chosenXAxis, y=true){
     // Input:- data, chosenXAxis(attribute in the data)
     // Output:- Linear scale
     // y: Indicates y axis or not
-    var upper = (y==true) ? svgHeight: svgWidth;
+    var upper = (y==true) ? height: width;
     var linearScale = d3.scaleLinear()
                          .domain([d3.min(data, d=>d[chosenXAxis])*0.8, d3.max(data, d=>d[chosenXAxis])*1.2])
                          .range([0, upper])
+    
     return linearScale;
 }
 
@@ -54,8 +55,15 @@ d3.csv('assets/data/data.csv').then(function(data, err){
         entry.smokes = +entry.smokes;
         entry.healthcare = +entry.healthcare;
     });
+    //Testing scale:- console.log(scale(data, "age", false)(data[0]["age"]));
 
-    //console.log(scale(data, "age", y=false));
+    //By default, show povert Vs obesity
+    var chosenXAxis = "poverty", chosenYAxis = "obesity";
+
+    //Step b:- Create left and bottom axes
+    var bottomAxis = d3.axisBottom(scale(data, chosenXAxis, false));
+    var leftAxis = d3.axisLeft(scale(data, chosenYAxis, true));
+    
 
 }).catch(function(error){
     console.warn(error);
