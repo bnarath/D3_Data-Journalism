@@ -56,16 +56,36 @@ function renderGraph(){
         var yAxis = chartGroup.append("g")
                             .call(leftAxis);
 
-        //Step 4:- Render circles
-        var circlesGroup = chartGroup.selectAll("circle")
+        // Step 4:- Render circles
+        // var circlesGroup = chartGroup.selectAll("circle")
+        //                             .data(data)
+        //                             .enter()
+        //                             .append("g")
+        //                             .append("circle")
+        //                             .attr("cx", d=>xScale(d[chosenXAxis]))
+        //                             .attr("cy", d=>yScale(d[chosenYAxis]))
+        //                             .attr("r", radius)
+        //                             .attr("fill", "red")
+        //                             .attr("opacity", ".5");
+        var gGroup = chartGroup.selectAll("circle")
                                     .data(data)
                                     .enter()
-                                    .append("circle")
-                                    .attr("cx", d=>xScale(d[chosenXAxis]))
-                                    .attr("cy", d=>yScale(d[chosenYAxis]))
-                                    .attr("r", radius)
-                                    .attr("fill", "red")
-                                    .attr("opacity", ".5");
+                                    .append("g");
+        
+        var circlesGroup = gGroup.append("circle")
+            .attr("cx", d=>xScale(d[chosenXAxis]))
+            .attr("cy", d=>yScale(d[chosenYAxis]))
+            .attr("r", radius)
+            .attr("fill", "red")
+            .attr("opacity", ".5");
+                                    
+        var textGroup = gGroup.append("text")
+              .attr("x", d=>xScale(d[chosenXAxis]))
+              .attr("y", d=>yScale(d[chosenYAxis])+radius/2)
+              .attr("text-anchor", "middle")
+              .attr("fill", "white")
+              .text(d=>d["abbr"]);
+                                            
 
         // Step 5:- Create axes labels
         // // Step 5. 1 Axes label group for x & y axis
@@ -118,10 +138,10 @@ function renderGraph(){
 
         // Step 6:- Create ToolTip
         circlesGroup = renderTooltip(circlesGroup, chosenXAxis, chosenYAxis);
-        return [circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale];
+        return [circlesGroup, textGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale];
     }
 
-    function modifyChart(data, circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale, chosenXAxis, chosenYAxis, axis){
+    function modifyChart(data, circlesGroup, textGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale, chosenXAxis, chosenYAxis, axis){
         
         if(axis=="x"){
             //Step 1:- Create scales
@@ -140,6 +160,13 @@ function renderGraph(){
             //Step 4:- Update tooltip
             circlesGroup = renderTooltip(circlesGroup, chosenXAxis, chosenYAxis);
 
+            //Step5:- Transition Texts
+            textGroup.transition()
+                .duration(1000)
+                .attr("x", d=>xScale(d[chosenXAxis]));
+                
+
+
         }else{
             //Step 1:- Create scales
             var yScale = scale(data, chosenYAxis, true);
@@ -155,6 +182,12 @@ function renderGraph(){
                 .attr("cy", d => yScale(d[chosenYAxis]));
             //Step 4:- Update tooltip
             circlesGroup = renderTooltip(circlesGroup, chosenXAxis, chosenYAxis);
+
+            //Step5:- Transition Texts
+            textGroup.transition()
+                .duration(1000)
+                .attr("y", d=>yScale(d[chosenYAxis])+radius/2);
+                
         }
         // Step 5:- changes classes to change bold text
         var xOptions = ["poverty", "age", "income"];
@@ -174,7 +207,7 @@ function renderGraph(){
         .classed("active", d=>d==1?true:false)
         .classed("inactive", d=>d==0?true:false)
         //Return
-        return [circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale];
+        return [circlesGroup, textGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale];
         
     }
 
@@ -182,14 +215,14 @@ function renderGraph(){
     //This will be changed to window dependent later
     var svgWidth = window.innerWidth;
     var svgHeight = window.innerHeight;
-    var radius = 2 + 20*(d3.min([svgWidth, svgHeight])-100)/1100;
+    var radius = 2 + 20*(d3.mean([svgWidth, svgHeight])-100)/1100;
     //console.log(svgWidth, svgHeight);
 
     var margin = {
     top: 20,
     right: 20,
-    bottom: 150,
-    left: 150
+    bottom: 100,
+    left: 100
     };
 
     var width = svgWidth - margin.left - margin.right;
@@ -233,22 +266,22 @@ function renderGraph(){
 
         //By default, show povert Vs obesity
         var chosenXAxis = "poverty", chosenYAxis = "obesity";
-        var circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale;
-        [circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale] = updateChart(data, chosenXAxis, chosenYAxis);
+        var circlesGroup, textGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale;
+        [circlesGroup, textGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale] = updateChart(data, chosenXAxis, chosenYAxis);
         
         //Event Listeners on xLabelGroup, yLabelGroup
         xLabelGroup.selectAll("text").on("click", function(){
             var value = d3.select(this).attr("value");
             if (value!=chosenXAxis){
                 chosenXAxis = value;
-                [circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale] = modifyChart(data, circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale, chosenXAxis, chosenYAxis, axis="x");
+                [circlesGroup, textGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale] = modifyChart(data, circlesGroup, textGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale, chosenXAxis, chosenYAxis, axis="x");
             }
         })
         yLabelGroup.selectAll("text").on("click", function(){
             var value = d3.select(this).attr("value");
             if (value!=chosenYAxis){
                 chosenYAxis = value;
-                [circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale] = modifyChart(data, circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale, chosenXAxis, chosenYAxis, axis="y");
+                [circlesGroup, textGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale] = modifyChart(data, circlesGroup, textGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale, chosenXAxis, chosenYAxis, axis="y");
             }
         })
         
