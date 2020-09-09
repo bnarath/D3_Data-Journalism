@@ -140,10 +140,11 @@ function updateChart(data, chosenXAxis, chosenYAxis){
     return [circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale];
 }
 
-function modifyChart(circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale, axis){
+function modifyChart(data, circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale, chosenXAxis, chosenYAxis, axis){
+    
     if(axis=="x"){
         //Step 1:- Create scales
-        var xScale = scale(data, chosenAxis, false);
+        var xScale = scale(data, chosenXAxis, false);
         //Step 2:- Axis Transition
         // updates x axis with transition
         var bottomAxis = d3.axisBottom(xScale);
@@ -153,7 +154,9 @@ function modifyChart(circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScal
         //Step 3:- Transition circles
         circlesGroup.transition()
             .duration(1000)
-            .attr("cx", d => xScale(d[chosenAxis]));
+            .attr("cx", d => xScale(d[chosenXAxis]));
+        //Step 4:- Update tooltip
+        circlesGroup = renderTooltip(circlesGroup, chosenXAxis, chosenYAxis);
 
     }else{
         //Step 1:- Create scales
@@ -168,8 +171,13 @@ function modifyChart(circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScal
         circlesGroup.transition()
             .duration(1000)
             .attr("cy", d => yScale(d[chosenAxis]));
-
+        //Step 4:- Update tooltip
+        circlesGroup = renderTooltip(circlesGroup, chosenXAxis, chosenYAxis);
     }
+
+    //Return
+    return [circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale];
+    
 }
 
 //Step5:- Explore CSV
@@ -195,7 +203,7 @@ d3.csv('assets/data/data.csv').then(function(data, err){
 
     //By default, show povert Vs obesity
     var chosenXAxis = "poverty", chosenYAxis = "obesity";
-    var circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis;
+    var circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale;
     [circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale] = updateChart(data, chosenXAxis, chosenYAxis);
     
     //Event Listeners on xLabelGroup, yLabelGroup
@@ -203,7 +211,7 @@ d3.csv('assets/data/data.csv').then(function(data, err){
         var value = d3.select(this).attr("value");
         if (value!=chosenXAxis){
             chosenXAxis = value;
-            [circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis] = modifyChart(circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale, chosenXAxis, axis="x");
+            [circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale] = modifyChart(data, circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale, chosenXAxis, chosenYAxis, axis="x");
         }
     })
 
