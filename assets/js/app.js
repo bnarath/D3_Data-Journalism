@@ -143,20 +143,32 @@ function updateChart(data, chosenXAxis, chosenYAxis){
 function modifyChart(circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale, axis){
     if(axis=="x"){
         //Step 1:- Create scales
-        var xScale = scale(data, chosenXAxis, false);
+        var xScale = scale(data, chosenAxis, false);
+        //Step 2:- Axis Transition
         // updates x axis with transition
         var bottomAxis = d3.axisBottom(xScale);
         xAxis.transition()
             .duration(1000)
             .call(bottomAxis);
+        //Step 3:- Transition circles
+        circlesGroup.transition()
+            .duration(1000)
+            .attr("cx", d => xScale(d[chosenAxis]));
 
     }else{
-        var yScale = scale(data, chosenXAxis, true);
+        //Step 1:- Create scales
+        var yScale = scale(data, chosenAxis, true);
+        //Step 2:- Axis Transition
         // updates x axis with transition
         var leftAxis = d3.axisLeft(yScale);
         yAxis.transition()
             .duration(1000)
             .call(leftAxis);
+        //Step 3:- Transition circles
+        circlesGroup.transition()
+            .duration(1000)
+            .attr("cy", d => yScale(d[chosenAxis]));
+
     }
 }
 
@@ -191,7 +203,7 @@ d3.csv('assets/data/data.csv').then(function(data, err){
         var value = d3.select(this).attr("value");
         if (value!=chosenXAxis){
             chosenXAxis = value;
-            [circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis] = modifyChart(circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale, axis="x");
+            [circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis] = modifyChart(circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale, chosenXAxis, axis="x");
         }
     })
 
