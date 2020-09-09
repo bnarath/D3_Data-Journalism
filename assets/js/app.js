@@ -174,7 +174,18 @@ function modifyChart(data, circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis,
         //Step 4:- Update tooltip
         circlesGroup = renderTooltip(circlesGroup, chosenXAxis, chosenYAxis);
     }
+    // Step 5:- changes classes to change bold text
+    var xOptions = ["poverty", "age", "income"];
+    var yOptions = ["healthcare", "smokes", "obesity"];
+    var xData = new Array(3).fill(0);
+    var yData = new Array(3).fill(0);
+    xData[xOptions.indexOf(chosenXAxis)]=1;
+    yData[yOptions.indexOf(chosenYAxis)]=1;
 
+    xLabelGroup.selectAll("text")
+    .data(xData)
+    .classed("active", d=>d==1?true:false)
+    .classed("inactive", d=>d==0?true:false)
     //Return
     return [circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale];
     
