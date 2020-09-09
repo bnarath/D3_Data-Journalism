@@ -186,6 +186,11 @@ function modifyChart(data, circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis,
     .data(xData)
     .classed("active", d=>d==1?true:false)
     .classed("inactive", d=>d==0?true:false)
+
+    yLabelGroup.selectAll("text")
+    .data(yData)
+    .classed("active", d=>d==1?true:false)
+    .classed("inactive", d=>d==0?true:false)
     //Return
     return [circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale];
     
