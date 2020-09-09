@@ -135,7 +135,7 @@ function updateChart(data, chosenXAxis, chosenYAxis){
 
     // Step 6:- Create ToolTip
     circlesGroup = renderTooltip(circlesGroup, chosenXAxis, chosenYAxis);
-
+    return [circlesGroup, xLabelGroup, yLabelGroup];
 }
 
 //Step5:- Explore CSV
@@ -161,8 +161,16 @@ d3.csv('assets/data/data.csv').then(function(data, err){
 
     //By default, show povert Vs obesity
     var chosenXAxis = "poverty", chosenYAxis = "obesity";
-    updateChart(data, chosenXAxis, chosenYAxis);
-
+    var circlesGroup, xLabelGroup, yLabelGroup;
+    [circlesGroup, xLabelGroup, yLabelGroup] = updateChart(data, chosenXAxis, chosenYAxis);
+    
+    //Event Listeners on xLabelGroup, yLabelGroup
+    xLabelGroup.selectAll("text").on("click", function(){
+        var value = d3.select(this).attr("value");
+        if (value!=chosenXAxis){
+            
+        }
+    })
 
     
 }).catch(function(error){
