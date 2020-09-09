@@ -8,7 +8,7 @@ function renderGraph(){
         // y: Indicates y axis or not
         var upper = (y==true) ? [height,0]: [0,width];
         var linearScale = d3.scaleLinear()
-                            .domain([d3.min(data, d=>d[chosenXAxis])*0.8, d3.max(data, d=>d[chosenXAxis])*1.2])
+                            .domain([d3.min(data, d=>d[chosenXAxis])*0.9, d3.max(data, d=>d[chosenXAxis])*1.1])
                             .range(upper)
         
         return linearScale;
@@ -49,8 +49,9 @@ function renderGraph(){
 
         //Step 3:- Render axes 
         var xAxis = chartGroup.append("g")
-                            .attr("transform", `translate(0, ${height})`)
-                            .call(bottomAxis);
+                                  .attr("transform", `translate(0, ${height})`)
+                                  .call(bottomAxis);
+
 
         var yAxis = chartGroup.append("g")
                             .call(leftAxis);
@@ -62,7 +63,7 @@ function renderGraph(){
                                     .append("circle")
                                     .attr("cx", d=>xScale(d[chosenXAxis]))
                                     .attr("cy", d=>yScale(d[chosenYAxis]))
-                                    .attr("r", 10)
+                                    .attr("r", radius)
                                     .attr("fill", "red")
                                     .attr("opacity", ".5");
 
@@ -131,6 +132,7 @@ function renderGraph(){
             xAxis.transition()
                 .duration(1000)
                 .call(bottomAxis);
+
             //Step 3:- Transition circles
             circlesGroup.transition()
                 .duration(1000)
@@ -180,6 +182,8 @@ function renderGraph(){
     //This will be changed to window dependent later
     var svgWidth = window.innerWidth;
     var svgHeight = window.innerHeight;
+    var radius = 2 + 20*(d3.min([svgWidth, svgHeight])-100)/1100;
+    //console.log(svgWidth, svgHeight);
 
     var margin = {
     top: 20,
