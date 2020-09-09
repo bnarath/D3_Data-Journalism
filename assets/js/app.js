@@ -38,14 +38,16 @@ function scale(data, chosenXAxis, y=true){
 // Creates and Render tooltip 
 //Returns the group with rendered tooltip
 function renderTooltip(circlesGroup, chosenXAxis, chosenYAxis){
+    
     var toolTip = d3.tip()
                     .attr("class", "d3-tip")
                     .offset([-10,0])
                     .html(function(d){
                         return (`${d.state}<hr>${chosenXAxis}:${d[chosenXAxis]}<br>${chosenYAxis}:${d[chosenYAxis]}`);
                     });
-
+    
     circlesGroup.call(toolTip);
+    
     //Show and hide tooltip
     circlesGroup.on("mouseover", function(d){
         toolTip.show(d, this);
@@ -135,7 +137,27 @@ function updateChart(data, chosenXAxis, chosenYAxis){
 
     // Step 6:- Create ToolTip
     circlesGroup = renderTooltip(circlesGroup, chosenXAxis, chosenYAxis);
-    return [circlesGroup, xLabelGroup, yLabelGroup];
+    return [circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale];
+}
+
+function modifyChart(circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale, axis){
+    if(axis=="x"){
+        //Step 1:- Create scales
+        var xScale = scale(data, chosenXAxis, false);
+        // updates x axis with transition
+        var bottomAxis = d3.axisBottom(xScale);
+        xAxis.transition()
+            .duration(1000)
+            .call(bottomAxis);
+
+    }else{
+        var yScale = scale(data, chosenXAxis, true);
+        // updates x axis with transition
+        var leftAxis = d3.axisLeft(yScale);
+        yAxis.transition()
+            .duration(1000)
+            .call(leftAxis);
+    }
 }
 
 //Step5:- Explore CSV
@@ -161,14 +183,15 @@ d3.csv('assets/data/data.csv').then(function(data, err){
 
     //By default, show povert Vs obesity
     var chosenXAxis = "poverty", chosenYAxis = "obesity";
-    var circlesGroup, xLabelGroup, yLabelGroup;
-    [circlesGroup, xLabelGroup, yLabelGroup] = updateChart(data, chosenXAxis, chosenYAxis);
+    var circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis;
+    [circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale] = updateChart(data, chosenXAxis, chosenYAxis);
     
     //Event Listeners on xLabelGroup, yLabelGroup
     xLabelGroup.selectAll("text").on("click", function(){
         var value = d3.select(this).attr("value");
         if (value!=chosenXAxis){
-            
+            chosenXAxis = value;
+            [circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis] = modifyChart(circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale, axis="x");
         }
     })
 
