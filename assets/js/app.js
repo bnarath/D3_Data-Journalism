@@ -55,39 +55,17 @@ function renderTooltip(circlesGroup, chosenXAxis, chosenYAxis){
     return circlesGroup;
 }
 
+function updateChart(data, chosenXAxis, chosenYAxis){
 
-//Step5:- Explore CSV
-d3.csv('assets/data/data.csv').then(function(data, err){
-    //Throw err if exists
-    if (err) throw err;
-
-    //console.log(data);
-    //abbr, poverty, age, income, obesity, smokes, healthcare are the attributes to be considered
-    //data is in the form of array of objects
-
-    //Step a:- //Convert the below attributes to numeric
-    // age, poverty, income, obesity, smokes, healthcare
-    data.forEach(entry => {
-        entry.age = +entry.age;
-        entry.poverty = +entry.poverty;
-        entry.income = +entry.income;
-        entry.obesity = +entry.obesity;
-        entry.smokes = +entry.smokes;
-        entry.healthcare = +entry.healthcare;
-    });
-    //Testing scale:- console.log(scale(data, "age", false)(data[0]["age"]));
-
-    //By default, show povert Vs obesity
-    var chosenXAxis = "poverty", chosenYAxis = "obesity";
-    //Step b:- Create scales
+    //Step 1:- Create scales
     var xScale = scale(data, chosenXAxis, false);
     var yScale = scale(data, chosenYAxis, true);
 
-    //Step c:- Create left and bottom axes
+    //Step 2:- Create left and bottom axes
     var bottomAxis = d3.axisBottom(xScale);
     var leftAxis = d3.axisLeft(yScale);
 
-    //Step d:- Render axes -> Need to refactor This
+    //Step 3:- Render axes 
     var xAxis = chartGroup.append("g")
                           .attr("transform", `translate(0, ${height})`)
                           .call(bottomAxis);
@@ -95,7 +73,7 @@ d3.csv('assets/data/data.csv').then(function(data, err){
     var yAxis = chartGroup.append("g")
                           .call(leftAxis);
 
-    //Step e:- Render circles
+    //Step 4:- Render circles
     var circlesGroup = chartGroup.selectAll("circle")
                                  .data(data)
                                  .enter()
@@ -106,13 +84,13 @@ d3.csv('assets/data/data.csv').then(function(data, err){
                                  .attr("fill", "red")
                                  .attr("opacity", ".5");
 
-    // Step f:- Create axes labels
-    // // Step f. 1 Axes label group for x & y axis
+    // Step 5:- Create axes labels
+    // // Step 5. 1 Axes label group for x & y axis
     var xLabelGroup = chartGroup.append("g").attr("transform", `translate(${width/2}, ${height})`);
     var yLabelGroup = chartGroup.append("g")
                                 .attr("transform", "rotate(-90)");
                                 
-    // // Step f. 2 Render axes labels
+    // // Step 5. 2 Render axes labels
     var povertyLabel = xLabelGroup.append("text")
                                   .attr("x", 0)
                                   .attr("y", 30)
@@ -154,10 +132,38 @@ d3.csv('assets/data/data.csv').then(function(data, err){
         .attr("value", "obesity")
         .classed("active", true)
         .text("Obese (%)");
-    
-    //console.log(data);
-    // Step g:- Create ToolTip
+
+    // Step 6:- Create ToolTip
     circlesGroup = renderTooltip(circlesGroup, chosenXAxis, chosenYAxis);
+
+}
+
+//Step5:- Explore CSV
+d3.csv('assets/data/data.csv').then(function(data, err){
+    //Throw err if exists
+    if (err) throw err;
+
+    //console.log(data);
+    //abbr, poverty, age, income, obesity, smokes, healthcare are the attributes to be considered
+    //data is in the form of array of objects
+
+    //Step a:- //Convert the below attributes to numeric
+    // age, poverty, income, obesity, smokes, healthcare
+    data.forEach(entry => {
+        entry.age = +entry.age;
+        entry.poverty = +entry.poverty;
+        entry.income = +entry.income;
+        entry.obesity = +entry.obesity;
+        entry.smokes = +entry.smokes;
+        entry.healthcare = +entry.healthcare;
+    });
+    //Testing scale:- console.log(scale(data, "age", false)(data[0]["age"]));
+
+    //By default, show povert Vs obesity
+    var chosenXAxis = "poverty", chosenYAxis = "obesity";
+    updateChart(data, chosenXAxis, chosenYAxis);
+
+
     
 }).catch(function(error){
     console.warn(error);
