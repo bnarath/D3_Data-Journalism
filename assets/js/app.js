@@ -160,7 +160,7 @@ function modifyChart(data, circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis,
 
     }else{
         //Step 1:- Create scales
-        var yScale = scale(data, chosenAxis, true);
+        var yScale = scale(data, chosenYAxis, true);
         //Step 2:- Axis Transition
         // updates x axis with transition
         var leftAxis = d3.axisLeft(yScale);
@@ -170,7 +170,7 @@ function modifyChart(data, circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis,
         //Step 3:- Transition circles
         circlesGroup.transition()
             .duration(1000)
-            .attr("cy", d => yScale(d[chosenAxis]));
+            .attr("cy", d => yScale(d[chosenYAxis]));
         //Step 4:- Update tooltip
         circlesGroup = renderTooltip(circlesGroup, chosenXAxis, chosenYAxis);
     }
@@ -214,7 +214,13 @@ d3.csv('assets/data/data.csv').then(function(data, err){
             [circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale] = modifyChart(data, circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale, chosenXAxis, chosenYAxis, axis="x");
         }
     })
-
+    yLabelGroup.selectAll("text").on("click", function(){
+        var value = d3.select(this).attr("value");
+        if (value!=chosenYAxis){
+            chosenYAxis = value;
+            [circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale] = modifyChart(data, circlesGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale, chosenXAxis, chosenYAxis, axis="y");
+        }
+    })
     
 }).catch(function(error){
     console.warn(error);
