@@ -50,6 +50,7 @@ function renderGraph(){
         //Step 3:- Render axes 
         var xAxis = chartGroup.append("g")
                                   .attr("transform", `translate(0, ${height})`)
+                                  .attr("font-size", labelGap)
                                   .call(bottomAxis);
 
 
@@ -86,42 +87,42 @@ function renderGraph(){
         // // Step 5. 2 Render axes labels
         var povertyLabel = xLabelGroup.append("text")
                                     .attr("x", 0)
-                                    .attr("y", 2*labelGap)
+                                    .attr("y", 3.5*labelGap)
                                     .attr("value", "poverty")
                                     .classed("active", true)
                                     .text("In poverty (%)");
 
         var ageLabel = xLabelGroup.append("text")
             .attr("x", 0)
-            .attr("y", 3.5*labelGap)
+            .attr("y", 5*labelGap)
             .attr("value", "age")
             .classed("inactive", true)
             .text("Age (Median)");
 
         var incomeLabel = xLabelGroup.append("text")
             .attr("x", 0)
-            .attr("y", 5*labelGap)
+            .attr("y", 6.5*labelGap)
             .attr("value", "income")
             .classed("inactive", true)
             .text("Household Income (Median)");
 
         var healthcareLabel = yLabelGroup.append("text")
             .attr("x", 0 - (height / 2))
-            .attr("y", -2*labelGap)
+            .attr("y", -3*labelGap)
             .attr("value", "healthcare")
             .classed("inactive", true)
             .text("Lacks Healthcare (%)");
         
         var smokesLabel = yLabelGroup.append("text")
             .attr("x", 0 - (height / 2))
-            .attr("y", -3.5*labelGap)
+            .attr("y", -4.5*labelGap)
             .attr("value", "smokes")
             .classed("inactive", true)
             .text("Smokes (%)");
 
         var obesityLabel = yLabelGroup.append("text")
             .attr("x", 0 - (height / 2))
-            .attr("y", -5*labelGap)
+            .attr("y", -6*labelGap)
             .attr("value", "obesity")
             .classed("active", true)
             .text("Obese (%)");
@@ -138,7 +139,13 @@ function renderGraph(){
             var xScale = scale(data, chosenXAxis, false);
             //Step 2:- Axis Transition
             // updates x axis with transition
-            var bottomAxis = d3.axisBottom(xScale);
+            //Change the format of ticks if screen width is less that 530 and value is "income" to avoid crowding
+            if((chosenXAxis == 'income') && (svgWidth<530)){
+                var bottomAxis = d3.axisBottom(xScale).tickFormat(d3.format(".2s"));;         
+            }else{
+                var bottomAxis = d3.axisBottom(xScale);
+            }
+            
             xAxis.transition()
                 .duration(1000)
                 .call(bottomAxis);
@@ -196,6 +203,8 @@ function renderGraph(){
         .data(yData)
         .classed("active", d=>d==1?true:false)
         .classed("inactive", d=>d==0?true:false)
+
+  
         //Return
         return [circlesGroup, textGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale];
         
@@ -206,15 +215,15 @@ function renderGraph(){
     var svgWidth = window.innerWidth;
     var svgHeight = window.innerHeight;
     var radius = 2 + (20*svgWidth-100)/1100;
-    var labelGap = d3.min([svgWidth, svgHeight])*2/100;
+    var labelGap = d3.mean([svgWidth, svgHeight])*2/100;
    
     //console.log(svgWidth, svgHeight);
 
     var margin = {
-    top: 20,
-    right: 20,
-    bottom: 100,
-    left: 100
+    top: labelGap,
+    right: labelGap,
+    bottom: 7*labelGap,
+    left: 7*labelGap
     };
 
     var width = svgWidth - margin.left - margin.right;
