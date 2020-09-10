@@ -6,30 +6,30 @@
 }
 
 .active {
+  font-family: sans-serif;
   font-weight: bold;
-  fill: #000;
-  transition: fill 0.3s ease-out;
+  font-size: 2vw;
+  /* fill: #000; */
+  fill: #551aaf;
+  /* transition: fill 0.3s ease-out; */
   text-anchor: middle;
 }
 
 .inactive {
+  font-family: sans-serif;
   font-weight: lighter;
-  fill: #c9c9c9;
-  transition: fill 0.3s ease-out;
+  font-size: 2vw;
+  fill: #551aaf;
+  /* transition: fill 0.3s ease-out; */
   text-anchor: middle;
 }
 
 .inactive:hover {
-  fill: #000;
+  fill: #e75480;
+  /* cursor: pointer; */
   cursor: pointer;
 }
 
-/* font size dependent on radius, see app.js */
-.stateText {
-  font-family: sans-serif;
-  fill: #fff;
-  text-anchor: middle;
-}
 
 .stateCircle {
   fill: #89bdd3;

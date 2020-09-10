@@ -86,42 +86,42 @@ function renderGraph(){
         // // Step 5. 2 Render axes labels
         var povertyLabel = xLabelGroup.append("text")
                                     .attr("x", 0)
-                                    .attr("y", 30)
+                                    .attr("y", 2*labelGap)
                                     .attr("value", "poverty")
                                     .classed("active", true)
                                     .text("In poverty (%)");
 
         var ageLabel = xLabelGroup.append("text")
             .attr("x", 0)
-            .attr("y", 50)
+            .attr("y", 3.5*labelGap)
             .attr("value", "age")
             .classed("inactive", true)
             .text("Age (Median)");
 
         var incomeLabel = xLabelGroup.append("text")
             .attr("x", 0)
-            .attr("y", 70)
+            .attr("y", 5*labelGap)
             .attr("value", "income")
             .classed("inactive", true)
             .text("Household Income (Median)");
 
         var healthcareLabel = yLabelGroup.append("text")
             .attr("x", 0 - (height / 2))
-            .attr("y", -30)
+            .attr("y", -2*labelGap)
             .attr("value", "healthcare")
             .classed("inactive", true)
             .text("Lacks Healthcare (%)");
         
         var smokesLabel = yLabelGroup.append("text")
             .attr("x", 0 - (height / 2))
-            .attr("y", -50)
+            .attr("y", -3.5*labelGap)
             .attr("value", "smokes")
             .classed("inactive", true)
             .text("Smokes (%)");
 
         var obesityLabel = yLabelGroup.append("text")
             .attr("x", 0 - (height / 2))
-            .attr("y", -70)
+            .attr("y", -5*labelGap)
             .attr("value", "obesity")
             .classed("active", true)
             .text("Obese (%)");
@@ -206,6 +206,8 @@ function renderGraph(){
     var svgWidth = window.innerWidth;
     var svgHeight = window.innerHeight;
     var radius = 2 + (20*svgWidth-100)/1100;
+    var labelGap = d3.min([svgWidth, svgHeight])*2/100;
+   
     //console.log(svgWidth, svgHeight);
 
     var margin = {

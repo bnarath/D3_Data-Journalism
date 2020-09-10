@@ -29,28 +29,3 @@ body {
   margin: 0;
   font-size: 16px;
 }
-
-
-.active {
-  font-family: sans-serif;
-  font-weight: bold;
-  font-size: 16px;
-  /* fill: #000; */
-  fill: #551aaf;
-  /* transition: fill 0.3s ease-out; */
-  text-anchor: middle;
-}
-
-.inactive {
-  font-family: sans-serif;
-  font-weight: lighter;
-  font-size: 16px;
-  fill: #551aaf;
-  /* transition: fill 0.3s ease-out; */
-  text-anchor: middle;
-}
-
-.inactive:hover {
-  fill: #e75480;
-  cursor: pointer;
-}
