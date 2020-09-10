@@ -12,50 +12,132 @@
 
 <body>
     <nav class="navbar-fluid" id="navbar">
-        <div class="navbar-header ">
+        <div class="navbar-header">
           <a class="navbar-brand">
             <h1>Data Driven Journalism</h1>
           </a>
           <div>
             <p><strong>Interactive plot that brings you the current trends shaping people's lives!</strong></p>
-            <p>Using data of <strong><i>U.S. Census Bureau</i></strong> and <strong><i>Behavioral Risk Factor Surveillance System</i></strong> to visualize the <i><strong>health risks facing particular demographics</strong></i></p>
+            <p>Using <strong><i>2014 ACS data</i></strong> of <a href="https://data.census.gov/cedsci/"><strong><i>U.S. Census Bureau</i></strong></a> to visualize the <i><strong>health risks facing particular demographics</strong></i></p>
           </div>
         </div>
     </nav>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-xs-12 col-md-12">
-        <h1>D3Times</h1>
-      </div>
-    </div>
-    <div class="row">
-        <div id="scatter" class="col-xs-12 rounded iframeContainer">
+    <div class="container-fluid my-0">
+    <div class="row my-0">
+      <div class="jumbotron col-12 my-0">
+        <div class="alert alert-secondary col-xs-12 col-md-6 mx-auto my-0 centre" role="alert">
+          <h4 class="alert-heading">Explore the interactive chart</h4>
+          <p>By choosing the axes of your choice!</p>
+          <hr>
+          <p>Hover over to get granular details!</p>
+        </div>
+      </div class="my-0">
+        <div id="scatter" class="col-12 rounded iframeContainer my-0">
           <!-- We append our chart here. -->
         </div>
     </div>
-    <div class="row">
-      <div class="col-xs-12  col-md-9">
-        <div class="article">
-          <h2>Correlations Discovered Between Health Risks and Age, Income</h2>
-          <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor
-            quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
-            ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-
-          <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor
-            quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
-            ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-
-          <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor
-            quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
-            ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+    <div class="container-fluid">
+        <div class="col-12 jumbotron mx-0 mt-0">
+            <h3>Discovered Correlations</h3>
+        </div>
+      <div class="row">
+        <div class="col-6 col-md-4 mx-auto my-1">
+          <div class="card text-white bg-dark h-100">
+            <div class="card-header">Poverty Vs Lack of healthcare</div>
+            <div class="card-body">
+              <h5 class="card-title">Postive correlations</h5>
+              <p class="card-text">There is a gap to fill in providing healthcare where there is a higher poverty rate. <strong>
+                We need more Health Care facilities to be accessible to the Poor</strong></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-4 mx-auto my-1">
+          <div class="card text-white bg-dark h-100">
+            <div class="card-header">Poverty% Vs Smokes%</div>
+            <div class="card-body">
+              <h5 class="card-title">Postive correlations</h5>
+              <p class="card-text">Smoking is more among people living in poverty; financial stress could be a factor<strong>
+                Better rehabilitation facilities to be available to the poor</strong></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-4 mx-auto my-1">
+          <div class="card text-white bg-dark h-100">
+            <div class="card-header">Poverty% Vs Obesity%</div>
+            <div class="card-body">
+              <h5 class="card-title">Slight Postive correlations</h5>
+              <p class="card-text">Unhealthy food is cheaper compared to healthy ones<strong>
+                Better nutrition to be provided to the poor with moderate prices</strong></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-4 mx-auto my-1">
+          <div class="card text-white bg-dark h-100">
+            <div class="card-header">Poverty% Vs Obesity%</div>
+            <div class="card-body">
+              <h5 class="card-title">Slight Postive correlations</h5>
+              <p class="card-text">Unhealthy food is cheaper compared to healthy ones<strong>
+                Better nutrition to be provided to the poor with moderate prices</strong></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-4 mx-auto my-1">
+          <div class="card text-white bg-dark h-100">
+            <div class="card-header">Poverty% Vs Obesity%</div>
+            <div class="card-body">
+              <h5 class="card-title">Slight Postive correlations</h5>
+              <p class="card-text">Unhealthy food is cheaper compared to healthy ones<strong>
+                Better nutrition to be provided to the poor with moderate prices</strong></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-4 mx-auto my-1">
+          <div class="card text-white bg-dark h-100">
+            <div class="card-header">Poverty% Vs Obesity%</div>
+            <div class="card-body">
+              <h5 class="card-title">Slight Postive correlations</h5>
+              <p class="card-text">Unhealthy food is cheaper compared to healthy ones<strong>
+                Better nutrition to be provided to the poor with moderate prices</strong></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-4 mx-auto my-1">
+          <div class="card text-white bg-dark h-100">
+            <div class="card-header">Poverty% Vs Obesity%</div>
+            <div class="card-body">
+              <h5 class="card-title">Slight Postive correlations</h5>
+              <p class="card-text">Unhealthy food is cheaper compared to healthy ones<strong>
+                Better nutrition to be provided to the poor with moderate prices</strong></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-4 mx-auto my-1">
+          <div class="card text-white bg-dark h-100">
+            <div class="card-header">Poverty% Vs Obesity%</div>
+            <div class="card-body">
+              <h5 class="card-title">Slight Postive correlations</h5>
+              <p class="card-text">Unhealthy food is cheaper compared to healthy ones<strong>
+                Better nutrition to be provided to the poor with moderate prices</strong></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-4 mx-auto my-1">
+          <div class="card text-white bg-dark h-100">
+            <div class="card-header">Poverty% Vs Obesity%</div>
+            <div class="card-body">
+              <h5 class="card-title">Slight Postive correlations</h5>
+              <p class="card-text">Unhealthy food is cheaper compared to healthy ones<strong>
+                Better nutrition to be provided to the poor with moderate prices</strong></p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+    
 
   <!-- Footer-->
   <div id="footer">
-    <p>The Coding Boot Camp&copy;2016</p>
+    <p>&copy;bnarath@github.io</p>
   </div>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

@@ -2,7 +2,7 @@
   padding: 20px;
   border: 2px solid grey;
   justify-self: center;
-  margin: auto;
+  margin: 0px 1px 0px 1px;
   background: white;
 }
 
@@ -32,10 +32,22 @@ body {
 #footer p {
   margin: 0;
   font-size: 16px;
+  background-color: coral;
 }
 
 /* navebar header styling  */
 #navbar {
   background-color: coral !important;
   text-align: center;
+  margin-bottom: -16px !important;
+}
+
+/* alert box font styling */
+.centre{
+  text-align: center !important;
+}
+
+/* Card styling */
+.card-box{
+  margin:0px;
 }
