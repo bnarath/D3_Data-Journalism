@@ -1,6 +1,6 @@
 .aText {
   font-family: sans-serif;
-  font-size: 2vw;
+  font-size: 1.5vw;
   text-anchor: middle;
   fill: #fff;
 }
@@ -10,7 +10,8 @@
   font-weight: bold;
   font-size: 2vw;
   /* fill: #000; */
-  fill: #000;
+  fill: black;
+  opacity: 0.6;
   /* transition: fill 0.3s ease-out; */
   text-anchor: middle;
 }
@@ -19,7 +20,7 @@
   font-family: sans-serif;
   font-weight: lighter;
   font-size: 2vw;
-  fill: #000;
+  fill: grey;
   /* transition: fill 0.3s ease-out; */
   text-anchor: middle;
 }

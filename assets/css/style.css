@@ -1,6 +1,9 @@
 .iframeContainer {
   padding: 20px;
-  border: 1px solid #e3e3e3;
+  border: 2px solid grey;
+  justify-self: center;
+  margin: auto;
+  background: white;
 }
 
 /* Sticky Footer rules (https://getbootstrap.com/examples/sticky-footer/) */
@@ -12,6 +15,7 @@ html {
 body {
   /* Padding bottom by footer height */
   padding-bottom: 80px;
+  font-family: 'Quicksand';
 }
 
 #footer {
@@ -28,4 +32,10 @@ body {
 #footer p {
   margin: 0;
   font-size: 16px;
+}
+
+/* navebar header styling  */
+#navbar {
+  background-color: coral !important;
+  text-align: center;
 }

@@ -223,9 +223,9 @@ function renderGraph(X, Y){
 
         //Step1:- Decide SVG and Group Frames
         //This will be changed to window dependent later
-        var svgWidth = window.innerWidth;
-        var svgHeight = window.innerHeight;
-        var radius = 2 + (20*svgWidth-100)/1100;
+        var svgWidth = window.innerWidth-100>1000?1000:window.innerWidth-100;
+        var svgHeight = window.innerHeight-50>700?700:window.innerHeight-50;
+        var radius = (18*svgWidth-100)/1000;
         var labelGap = d3.mean([svgWidth, svgHeight])*2/100;
     
         //console.log(svgWidth, svgHeight);
@@ -233,8 +233,8 @@ function renderGraph(X, Y){
         var margin = {
         top: labelGap,
         right: labelGap,
-        bottom: 7*labelGap,
-        left: 7*labelGap
+        bottom: 8*labelGap,
+        left: 8*labelGap
         };
 
         var width = svgWidth - margin.left - margin.right;
