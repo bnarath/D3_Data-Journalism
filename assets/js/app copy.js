@@ -22,7 +22,7 @@ function renderGraph(X, Y){
         //Step6:- Render ToolTip
         // Creates and Render tooltip 
         //Returns the group with rendered tooltip
-        function renderTooltip(gGroup, chosenXAxis, chosenYAxis){
+        function renderTooltip(circlesGroup, chosenXAxis, chosenYAxis){
             
             var toolTip = d3.tip()
                             .attr("class", "d3-tip")
@@ -31,15 +31,15 @@ function renderGraph(X, Y){
                                 return (`${d.state}<hr>${chosenXAxis}:${d[chosenXAxis]}<br>${chosenYAxis}:${d[chosenYAxis]}`);
                             });
             
-            gGroup.call(toolTip);
+            circlesGroup.call(toolTip);
             
             //Show and hide tooltip
-            gGroup.on("mouseover", function(d){
+            circlesGroup.on("mouseover", function(d){
                 toolTip.show(d, this);
             }).on("mouseout", function(d){
                 toolTip.hide();
             })
-            return gGroup;
+            return circlesGroup;
         }
 
         function updateChart(data, chosenXAxis, chosenYAxis){
@@ -139,11 +139,11 @@ function renderGraph(X, Y){
                 .text("Obese (%)");
 
             // Step 6:- Create ToolTip
-            gGroup = renderTooltip(gGroup, chosenXAxis, chosenYAxis);
-            return [gGroup, circlesGroup, textGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale];
+            circlesGroup = renderTooltip(circlesGroup, chosenXAxis, chosenYAxis);
+            return [circlesGroup, textGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale];
         }
 
-        function modifyChart(data, gGroup, circlesGroup, textGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale, chosenXAxis, chosenYAxis, axis){
+        function modifyChart(data, circlesGroup, textGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale, chosenXAxis, chosenYAxis, axis){
             
             if(axis=="x"){
                 //Step 1:- Create scales
@@ -166,7 +166,7 @@ function renderGraph(X, Y){
                     .duration(1000)
                     .attr("cx", d => xScale(d[chosenXAxis]));
                 //Step 4:- Update tooltip
-                gGroup = renderTooltip(gGroup, chosenXAxis, chosenYAxis);
+                circlesGroup = renderTooltip(circlesGroup, chosenXAxis, chosenYAxis);
 
                 //Step5:- Transition Texts
                 textGroup.transition()
@@ -189,7 +189,7 @@ function renderGraph(X, Y){
                     .duration(1000)
                     .attr("cy", d => yScale(d[chosenYAxis]));
                 //Step 4:- Update tooltip
-                gGroup = renderTooltip(gGroup, chosenXAxis, chosenYAxis);
+                circlesGroup = renderTooltip(circlesGroup, chosenXAxis, chosenYAxis);
 
                 //Step5:- Transition Texts
                 textGroup.transition()
@@ -217,7 +217,7 @@ function renderGraph(X, Y){
 
     
             //Return
-            return [gGroup, circlesGroup, textGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale];
+            return [circlesGroup, textGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale];
             
         }
 
@@ -281,22 +281,22 @@ function renderGraph(X, Y){
             });
             //Testing scale:- console.log(scale(data, "age", false)(data[0]["age"]));
 
-            var gGroup, circlesGroup, textGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale;
-            [gGroup, circlesGroup, textGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale] = updateChart(data, chosenXAxis, chosenYAxis);
+            var circlesGroup, textGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale;
+            [circlesGroup, textGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale] = updateChart(data, chosenXAxis, chosenYAxis);
             
             //Event Listeners on xLabelGroup, yLabelGroup
             xLabelGroup.selectAll("text").on("click", function(){
                 var value = d3.select(this).attr("value");
                 if (value!=chosenXAxis){
                     chosenXAxis = value;
-                    [gGroup, circlesGroup, textGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale] = modifyChart(data, gGroup, circlesGroup, textGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale, chosenXAxis, chosenYAxis, axis="x");
+                    [circlesGroup, textGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale] = modifyChart(data, circlesGroup, textGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale, chosenXAxis, chosenYAxis, axis="x");
                 }
             })
             yLabelGroup.selectAll("text").on("click", function(){
                 var value = d3.select(this).attr("value");
                 if (value!=chosenYAxis){
                     chosenYAxis = value;
-                    [gGroup, circlesGroup, textGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale] = modifyChart(data, gGroup, circlesGroup, textGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale, chosenXAxis, chosenYAxis, axis="y");
+                    [circlesGroup, textGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale] = modifyChart(data, circlesGroup, textGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale, chosenXAxis, chosenYAxis, axis="y");
                 }
             })
             

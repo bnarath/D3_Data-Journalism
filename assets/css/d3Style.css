@@ -30,11 +30,11 @@
   cursor: pointer;
 }
 
-
-.stateCircle {
-  fill: #89bdd3;
-  stroke: #e3e3e3;
+.circ:hover {
+  stroke: #551aaf;
+  stroke-width: .2vw;
 }
+
 
 .chart {
   display: block;
@@ -63,5 +63,10 @@ hr{
 @media all and (max-width: 530px) {
   .aText {
     display: none;
+  }
+
+  .circ:hover {
+    stroke: black;
+    stroke-width: 0.5vw;
   }
 }
