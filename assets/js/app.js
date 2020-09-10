@@ -57,16 +57,6 @@ function renderGraph(){
                             .call(leftAxis);
 
         // Step 4:- Render circles
-        // var circlesGroup = chartGroup.selectAll("circle")
-        //                             .data(data)
-        //                             .enter()
-        //                             .append("g")
-        //                             .append("circle")
-        //                             .attr("cx", d=>xScale(d[chosenXAxis]))
-        //                             .attr("cy", d=>yScale(d[chosenYAxis]))
-        //                             .attr("r", radius)
-        //                             .attr("fill", "red")
-        //                             .attr("opacity", ".5");
         var gGroup = chartGroup.selectAll("circle")
                                     .data(data)
                                     .enter()
@@ -81,8 +71,8 @@ function renderGraph(){
                                     
         var textGroup = gGroup.append("text")
               .attr("x", d=>xScale(d[chosenXAxis]))
-              .attr("y", d=>yScale(d[chosenYAxis])+radius/2)
-              .attr("text-anchor", "middle")
+              .attr("y", d=>yScale(d[chosenYAxis])+radius*0.35)
+              .attr("class", "aText")
               .attr("fill", "white")
               .text(d=>d["abbr"]);
                                             
@@ -186,7 +176,7 @@ function renderGraph(){
             //Step5:- Transition Texts
             textGroup.transition()
                 .duration(1000)
-                .attr("y", d=>yScale(d[chosenYAxis])+radius/2);
+                .attr("y", d=>yScale(d[chosenYAxis])+radius*0.35);
                 
         }
         // Step 5:- changes classes to change bold text
@@ -215,7 +205,7 @@ function renderGraph(){
     //This will be changed to window dependent later
     var svgWidth = window.innerWidth;
     var svgHeight = window.innerHeight;
-    var radius = 2 + 20*(d3.mean([svgWidth, svgHeight])-100)/1100;
+    var radius = 2 + (20*svgWidth-100)/1100;
     //console.log(svgWidth, svgHeight);
 
     var margin = {
