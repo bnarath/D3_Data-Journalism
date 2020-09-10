@@ -42,9 +42,9 @@
 }
 
 .d3-tip {
-  padding: 6px;
+  padding: 0px 6px;
+  margin: 0px 0px;
   font-size: 12px;
-  line-height: 1;
   line-height: 1.5em;
   color: #fff;
   text-align: center;
@@ -54,7 +54,9 @@
 }
 
 hr{
-  border-top: 1px dashed #fff;
+  border: 1px solid #fff;
+  padding: 0px;
+  margin: 0px; 
 }
 
 /* Mobile Rules */
