@@ -1,4 +1,4 @@
-var start, delta=100, timeout;//While resizing window, we shouldn't consider the changes happening within delta
+var start, delta=500, timeout;//While resizing window, we shouldn't consider the changes happening within delta
 function renderGraph(X, Y){
 
     if (new Date - start < delta) {
