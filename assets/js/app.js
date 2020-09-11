@@ -1,4 +1,4 @@
-var start, delta=500, timeout;//While resizing window, we shouldn't consider the changes happening within delta
+var start, delta=100, timeout;//While resizing window, we shouldn't consider the changes happening within delta
 function renderGraph(X, Y){
 
     if (new Date - start < delta) {
@@ -49,6 +49,13 @@ function renderGraph(X, Y){
 
             //Step 2:- Create left and bottom axes
             var bottomAxis = d3.axisBottom(xScale);
+            // updates x axis with transition
+            //Change the format of ticks if screen width is less that 530 and value is "income" to avoid crowding
+            if((chosenXAxis == 'income') && (svgWidth<530)){
+                var bottomAxis = d3.axisBottom(xScale).tickFormat(d3.format(".2s"));;         
+            }else{
+                var bottomAxis = d3.axisBottom(xScale);
+            }
             var leftAxis = d3.axisLeft(yScale);
 
             //Step 3:- Render axes 
@@ -56,6 +63,7 @@ function renderGraph(X, Y){
                                     .attr("transform", `translate(0, ${height})`)
                                     .attr("font-size", labelGap)
                                     .call(bottomAxis);
+                                    
 
 
             var yAxis = chartGroup.append("g")
@@ -141,6 +149,10 @@ function renderGraph(X, Y){
             // Step 6:- Create ToolTip
             gGroup = renderTooltip(gGroup, chosenXAxis, chosenYAxis);
 
+            //Update card
+            //console.log(`${chosenXAxis}_${chosenYAxis}`);
+            d3.selectAll(".card").classed("card-active", false);
+            d3.select(`#${chosenXAxis}_${chosenYAxis}`).classed("card-active", true);
             return [gGroup, circlesGroup, textGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale];
         }
 
@@ -216,7 +228,10 @@ function renderGraph(X, Y){
             .classed("active", d=>d==1?true:false)
             .classed("inactive", d=>d==0?true:false)
 
-    
+            //Update card
+            //console.log(`${chosenXAxis}_${chosenYAxis}`);
+            d3.selectAll(".card").classed("card-active", false);
+            d3.select(`#${chosenXAxis}_${chosenYAxis}`).classed("card-active", true);
             //Return
             return [gGroup, circlesGroup, textGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale];
             
@@ -230,7 +245,7 @@ function renderGraph(X, Y){
         var labelGap = d3.mean([svgWidth, svgHeight])*2/100;
     
         //console.log(svgWidth, svgHeight);
-
+        
         var margin = {
         top: labelGap,
         right: labelGap,
@@ -260,7 +275,7 @@ function renderGraph(X, Y){
         var chosenXAxis, chosenYAxis;
         chosenXAxis = (X==null) ? "poverty": X; 
         chosenYAxis = (Y==null) ? "obesity": Y;
-
+        
         //Step5:- Explore CSV
         d3.csv('assets/data/data.csv').then(function(data, err){
             //Throw err if exists

@@ -48,6 +48,7 @@ body {
 }
 
 /* Card styling */
-.card-box{
-  margin:0px;
+.card-active{
+  background-color: red !important;
+  opacity: 0.5 !important;
 }
