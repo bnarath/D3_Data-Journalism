@@ -19,7 +19,11 @@ The [data set](assets/data/data.csv) is based on 2014 ACS 1-year estimates: [htt
 
 - - -
 
-## Steps
+**Javascript library [d3](https://d3js.org/) and [SVG drawings](https://www.w3.org/TR/SVG2/) are used extensively in this project.**
+
+## Website is deployed [here!](https://bnarath.github.io/D3_Data-Journalism)
+
+![Webpage](Images/webpage.png)
 
 ### D3 Dabbler
 
