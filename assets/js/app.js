@@ -140,6 +140,7 @@ function renderGraph(X, Y){
 
             // Step 6:- Create ToolTip
             gGroup = renderTooltip(gGroup, chosenXAxis, chosenYAxis);
+
             return [gGroup, circlesGroup, textGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale];
         }
 
@@ -283,7 +284,7 @@ function renderGraph(X, Y){
 
             var gGroup, circlesGroup, textGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale;
             [gGroup, circlesGroup, textGroup, xLabelGroup, yLabelGroup, xAxis, yAxis, xScale, yScale] = updateChart(data, chosenXAxis, chosenYAxis);
-            
+
             //Event Listeners on xLabelGroup, yLabelGroup
             xLabelGroup.selectAll("text").on("click", function(){
                 var value = d3.select(this).attr("value");
