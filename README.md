@@ -25,9 +25,11 @@ The [data set](assets/data/data.csv) is based on 2014 ACS 1-year estimates: [htt
 
 ![Webpage](Images/webpage.png)
 
-### D3 Dabbler
+### Interactive plot with smooth transition and tooltip for granularity
 
-![4-scatter](Images/4-scatter.jpg)
+![Feature1](Images/features1.gif)
+
+
 
 You need to create a scatter plot between two of the data variables such as `Healthcare vs. Poverty` or `Smokers vs. Age`.
 
