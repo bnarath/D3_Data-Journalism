@@ -15,7 +15,7 @@ In this project, we sift through information from `the U.S. Census Bureau` and t
 
 ## Dataset
 
-The [data set](assets/data/data.csv) is based on 2014 ACS 1-year estimates: [https://factfinder.census.gov/faces/nav/jsf/pages/searchresults.xhtml](https://factfinder.census.gov/faces/nav/jsf/pages/searchresults.xhtml), The data set includes data on rates of income, obesity, poverty, etc. by state. MOE stands for "margin of error."
+The [data set](assets/data/data.csv) is based on 2014 ACS 1-year estimates: [https://data.census.gov/cedsci/](https://factfinder.census.gov/faces/nav/jsf/pages/searchresults.xhtml), The data set includes data on rates of income, obesity, poverty, etc. by state. MOE stands for "margin of error."
 
 - - -
 
